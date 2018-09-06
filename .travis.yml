@@ -11,12 +11,18 @@ script:
 after_success:
   - docker build -t kaprisa/multi-client ./client
   - docker build -t kaprisa/multi-nginx ./nginx
-  - docker build -t kaprisa/multi-api ./server
+  - docker build -t kaprisa/multi-server ./server
   - docker build -t kaprisa/multi-worker ./worker
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   - docker push kaprisa/multi-client
   - docker push kaprisa/multi-nginx
-  - docker push kaprisa/multi-api
+  - docker push kaprisa/multi-server
   - docker push kaprisa/multi-worker
+
+#deploy:
+#  provider: elasticbenstalk
+#  region: us-west-1
+#  app: multi-docker
+#  env:
 
 
